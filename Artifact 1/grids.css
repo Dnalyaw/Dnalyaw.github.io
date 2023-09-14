@@ -1,0 +1,573 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+
+div[class*='sqr'] {
+	position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+  	height: 100px;
+  	width: 100px;
+  	background-color: rgba(223,172,114,1.00);
+}
+
+div[class*='pawn'] {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	border: 2px solid #000;
+}
+
+div[class*='rook'] {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+div[class*='bishop'] {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+div[class*='king'] {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+
+
+
+
+
+
+div[class^='row1'] {
+	bottom: 700px;
+}
+
+div[class^='row2'] {
+	bottom: 500px;
+}
+
+div[class^='row3'] {
+	bottom: 300px;
+}
+
+div[class^='row4'] {
+	bottom: 100px;
+}
+
+div[class^='row5'] {
+	bottom: -100px;
+}
+
+div[class^='row6'] {
+	bottom: -300px;
+}
+
+div[class^='row7'] {
+	bottom: -500px;
+}
+
+div[class^='row8'] {
+	bottom: -700px;
+}
+
+div[class*='col1'] {
+	left: -700px;
+}
+
+div[class*='col2'] {
+	left: -500px;
+}
+
+div[class*='col3'] {
+	left: -300px;
+}
+
+div[class*='col4'] {
+	left: -100px;
+}
+
+div[class*='col5'] {
+	left: 100px;
+}
+
+div[class*='col6'] {
+	left: 300px;
+}
+
+div[class*='col7'] {
+	left: 500px;
+}
+
+div[class*='col8'] {
+	left: 700px;
+}
+
+
+
+  
+div[class*='whitepawncircle'] {
+	height: 35px;
+	width: 35px;
+	bottom: -460px;
+	border-radius: 17.5px;
+	background-color: white;
+}
+  
+div[class*='whitepawntriangle'] {
+	bottom: -510px;
+	right: 1px;
+	width: 0;
+	height: 0;
+	border: 25px solid transparent;
+	border-top: 0;
+	border-bottom: 75px solid white;
+  
+}
+  
+div[class*='whitepawntriangleborder'] {
+	bottom: -510px;
+	width: 0;
+	height: 0;
+	border: 29px solid transparent;
+	border-top: 0;
+	border-bottom: 79px solid black;
+  
+}
+  
+div[class*='whitepawnbase'] {
+	bottom: -570px;
+	width: 60px;
+	height: 20px;
+	background-color: white;
+}
+
+
+
+
+div[class*='blackpawncircle'] {
+	height: 35px;
+	width: 35px;
+	bottom: 540px;
+	border-radius: 17.5px;
+	background-color: rgb(54, 69, 79);
+}
+  
+div[class*='blackpawntriangle'] {
+	bottom: 490px;
+	right: 1px;
+	width: 0;
+	height: 0;
+	border: 25px solid transparent;
+	border-top: 0;
+	border-bottom: 75px solid rgb(54, 69, 79);
+  
+}
+
+div[class*='blackpawntriangleborder'] {
+	bottom: 490px;
+	width: 0;
+	height: 0;
+	border: 29px solid transparent;
+	border-top: 0;
+	border-bottom: 79px solid black;
+  
+}
+
+div[class*='blackpawnbase'] {
+	bottom: 430px;
+	width: 60px;
+	height: 20px;
+	background-color: rgb(54, 69, 79);
+}
+
+
+
+
+
+
+
+
+
+
+div[class*='blackrookhead1'] {
+	width: 40px;
+	height: 15px;
+	bottom: 750px;
+	background-color: rgb(54, 69, 79);
+}
+
+div[class*='blackrookhead1border'] {
+	width: 43px;
+	height: 19px;
+	bottom: 750px;
+	background-color: black;
+}
+
+div[class*='blackrookhead2'] {
+	width: 5px;
+	height: 20px;
+	top: -10px;
+	right: 35px;
+	bottom: 750px;
+	background-color: rgb(54, 69, 79);
+	border: 2px solid #000;
+}
+
+div[class*='blackrookhead3'] {
+	width: 5px;
+	height: 20px;
+	top: -10px;
+	bottom: 750px;
+	background-color: rgb(54, 69, 79);
+	border: 2px solid #000;
+}
+
+div[class*='blackrookhead4'] {
+	width: 5px;
+	height: 20px;
+	right: -35px;
+	top: -10px;
+	bottom: 750px;
+	background-color: rgb(54, 69, 79);
+	border: 2px solid #000;
+}
+  
+div[class*='blackrooktriangle'] {
+	bottom: 690px;
+	right: 1px;
+	width: 0;
+	height: 0;
+	border: 25px solid transparent;
+	border-top: 0;
+	border-bottom: 75px solid rgb(54, 69, 79);
+}
+
+div[class*='blackrooktriangleborder'] {
+	bottom: 690px;
+	width: 0;
+	height: 0;
+	border: 29px solid transparent;
+	border-top: 0;
+	border-bottom: 79px solid black;
+}
+
+div[class*='blackrookbase'] {
+	bottom: 630px;
+	width: 60px;
+	height: 20px;
+	background-color: rgb(54, 69, 79);
+	border: 2px solid #000;
+}
+
+
+
+div[class*='whiterookhead1'] {
+	width: 40px;
+	height: 15px;
+	bottom: -650px;
+	background-color: white;
+}
+
+div[class*='whiterookhead1border'] {
+	width: 43px;
+	height: 19px;
+	bottom: -650px;
+	background-color: black;
+}
+
+div[class*='whiterookhead2'] {
+	width: 5px;
+	height: 20px;
+	top: -10px;
+	right: 35px;
+	bottom: -650px;
+	background-color: white;
+	border: 2px solid #000;
+}
+
+div[class*='whiterookhead3'] {
+	width: 5px;
+	height: 20px;
+	top: -10px;
+	bottom: -650px;
+	background-color: white;
+	border: 2px solid #000;
+}
+
+div[class*='whiterookhead4'] {
+	width: 5px;
+	height: 20px;
+	right: -35px;
+	top: -10px;
+	bottom: -650px;
+	background-color: white;
+	border: 2px solid #000;
+}
+  
+div[class*='whiterooktriangle'] {
+	bottom: -710px;
+	right: 1px;
+	width: 0;
+	height: 0;
+	border: 25px solid transparent;
+	border-top: 0;
+	border-bottom: 75px solid white;
+  
+}
+  
+div[class*='whiterooktriangleborder'] {
+	bottom: -710px;
+	width: 0;
+	height: 0;
+	border: 29px solid transparent;
+	border-top: 0;
+	border-bottom: 79px solid black;
+  
+}
+  
+div[class*='whiterookbase'] {
+	bottom: -770px;
+	width: 60px;
+	height: 20px;
+	background-color: white;
+	border: 2px solid #000;
+}
+
+
+
+
+div[class*='whitebishopbase'] {
+	bottom: -770px;
+	width: 60px;
+	height: 20px;
+	background-color: white;
+	border: 2px solid #000;
+}
+
+
+div[class*='whitebishopcircle'] {
+	width: 10px;
+	height: 10px;
+	border-radius: 10px;
+	top: -20px;
+	bottom: -650px;
+	background-color: white;
+	border: 2px solid #000;
+}
+
+div[class*='whitebishophead'] {
+	width: 40px;
+	height: 60px;
+	border-radius: 50%;
+	top: 50px;
+	bottom: -650px;
+	background-color: white;
+	border: 2px solid #000;
+}
+
+
+div[class*='blackbishopbase'] {
+	bottom: 630px;
+	width: 60px;
+	height: 20px;
+	background-color: rgb(54, 69, 79);
+	border: 2px solid #000;
+}
+
+
+div[class*='blackbishopcircle'] {
+	width: 10px;
+	height: 10px;
+	border-radius: 10px;
+	bottom: 770px;
+	background-color: rgb(54, 69, 79);
+	border: 2px solid #000;
+}
+
+div[class*='blackbishophead'] {
+	width: 40px;
+	height: 60px;
+	border-radius: 50%;
+	top: 50px;
+	bottom: 750px;
+	background-color: rgb(54, 69, 79);
+	border: 2px solid #000;
+}
+
+
+
+
+div[class*='whitekingbase'] {
+	bottom: -770px;
+	width: 60px;
+	height: 10px;
+	background-color: white;
+	border: 2px solid #000;
+}
+
+div[class*='whitekingvcross'] {
+	bottom: -645px;
+	width: 10px;
+	height: 30px;
+	background-color: white;
+	border: 2px solid #000;
+}
+
+div[class*='whitekinghcross'] {
+	bottom: -645px;
+	width: 30px;
+	height: 10px;
+	background-color: white;
+}
+
+div[class*='whitekinghcrossborder'] {
+	bottom: -645px;
+	width: 30px;
+	height: 10px;
+	border: 2px solid #000;
+}
+
+div[class*='whitekinghbottomtriangle'] {
+	bottom: -740px;
+	width: 0;
+	height: 0;
+	border: 30px solid transparent;
+	border-top: 0;
+	border-bottom: 40px solid white;
+  
+}
+  
+div[class*='whitekingbottomtriangleborder'] {
+	bottom: -737px;
+	right: 1px;
+	width: 0;
+	height: 0;
+	border: 32px solid transparent;
+	border-top: 0;
+	border-bottom: 42px solid black;
+  
+}
+
+div[class*='whitekingtoptriangle'] {
+	bottom: -700px;
+	width: 0;
+	height: 0;
+	border: 15px solid transparent;
+	border-top: 0;
+	border-bottom: 30px solid white;
+	transform: rotate(180deg);
+  
+}
+  
+div[class*='whitekingtoptriangleborder'] {
+	bottom: -698px;
+	width: 0;
+	height: 0;
+	border: 17px solid transparent;
+	border-top: 0;
+	border-bottom: 32px solid black;
+	transform: rotate(180deg);  
+}
+
+
+
+
+
+
+
+
+div[class*='blackkingbase'] {
+	bottom: 630px;
+	width: 60px;
+	height: 10px;
+	background-color: rgb(54, 69, 79);
+	border: 2px solid #000;
+}
+
+div[class*='blackkingvcross'] {
+	bottom: 755px;
+	width: 10px;
+	height: 30px;
+	background-color: rgb(54, 69, 79);
+	border: 2px solid #000;
+}
+
+div[class*='blackkinghcross'] {
+	bottom: 755px;
+	width: 30px;
+	height: 10px;
+	background-color: rgb(54, 69, 79);
+}
+
+div[class*='blackkinghcrossborder'] {
+	bottom: 755px;
+	width: 30px;
+	height: 10px;
+	border: 2px solid #000;
+}
+
+div[class*='blackkinghbottomtriangle'] {
+	bottom: 670px;
+	width: 0;
+	height: 0;
+	border: 30px solid transparent;
+	border-top: 0;
+	border-bottom: 40px solid rgb(54, 69, 79);
+  
+}
+  
+div[class*='blackkingbottomtriangleborder'] {
+	bottom: 672px;
+	right: 1px;
+	width: 0;
+	height: 0;
+	border: 32px solid transparent;
+	border-top: 0;
+	border-bottom: 42px solid black;
+  
+}
+
+div[class*='blackkingtoptriangle'] {
+	bottom: 700px;
+	width: 0;
+	height: 0;
+	border: 15px solid transparent;
+	border-top: 0;
+	border-bottom: 30px solid rgb(54, 69, 79);
+	transform: rotate(180deg);
+  
+}
+  
+div[class*='blackkingtoptriangleborder'] {
+	bottom: 702px;
+	width: 0;
+	height: 0;
+	border: 17px solid transparent;
+	border-top: 0;
+	border-bottom: 32px solid black;
+	transform: rotate(180deg);  
+}
+
+
+
+         
