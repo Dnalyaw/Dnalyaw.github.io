@@ -141,6 +141,12 @@ p.summary {
 
 }
 
+p span {/*makes the text not wiggle around*/
+    display: inline-block;
+    width: 125px;
+    text-align: right;
+}
+
 #resume h4 {
     text-decoration: underline;
     font-size: 40px;
