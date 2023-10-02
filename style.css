@@ -6,6 +6,10 @@
     box-sizing: border-box;/* https://www.youtube.com/watch?v=WlGQdgy-M6w */
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 
 
 body {
@@ -85,6 +89,14 @@ nav#navbar ul li a {
     font-size: 1.5vw;
     width: 50%;
     line-height: 3vw;
+}
+
+#seeMore {
+    background-color: aquamarine;
+    font-family: "lexend";
+    font-size: 2vw;
+    border-radius: 15px;
+    padding: 15px;
 }
 
 
@@ -386,6 +398,8 @@ footer {
   .title-and-location, .resume-content p {
       margin: auto;
   }
+
+  
 }
 
 
@@ -400,5 +414,8 @@ footer {
 
   footer {
     text-decoration: underline;
+  }
+  #seeMore {
+    display: none;
   }
 }
