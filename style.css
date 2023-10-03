@@ -310,6 +310,11 @@ footer {
   transform: scale(1.25);
 }
 
+footer p {
+    padding-top: 20px;
+    color: white;
+}
+
 
 
 
