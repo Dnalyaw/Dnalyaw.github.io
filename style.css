@@ -299,13 +299,13 @@ footer {
 
 .socials li a img{
     margin: 0 25px;
+    border-radius: 20px; 
 }
 
 .socials img {
     height: 150px;
     width: 150px;
     transition: transform .2s;
-    border-radius: 20px;
 }
 .socials img:hover{
   transform: scale(1.25);
