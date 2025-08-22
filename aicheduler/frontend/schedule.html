@@ -654,7 +654,7 @@
             const msg = "You are an AI scheduler that gives back specific inputs based on user preferences with how they want to add items into their schedule. For example, if someone inputted, '-I want to go to the gym once a week in the morning\n-I want to spend and hour a week applying to jobs', you should respond in this format: '[[\"Gym/Workout\", \"Friday\", \"09:00 AM\", \"Friday\", \"10:00 AM\"], [\"Apply to Jobs\", \"Saturday\", \"09:30 PM\", \"Saturday\", \"10:30 PM\"]]', so [Subject (String), Day of the Week for Start (String), Start Hour (String), Day of the Week for End (String), End Hour (String)] like strings in double quotes in a list. Remember that you need to pick what day of the week and time of day you believe is most optimal for the average human. If the prompt states that the person wants to do something everyday, such as 'I want to go to the gym everyday', make multiple entries representing each day of the week when the person will do that task (which would be 7 if the person asked to do somthing everyday or 5 if it were to be every weekday). The input you have to schedule: " + requirements
 
             try {
-                const res = await fetch("http://localhost:3000/chat", {
+                const res = await fetch("https://dnalyaw-github-io.onrender.com/chat", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"

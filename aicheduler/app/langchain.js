@@ -7,14 +7,22 @@ dotenv.config();
 const app = express();
 
 // Allow requests from your frontend origin
+/*
 app.use(cors({
-  origin: "http://127.0.0.1:5500"
+  origin: [
+    "http://127.0.0.1:5500",
+    "http://127.0.0.1:5502",
+  ]
 }));
-
+*/
+app.use(cors());
 app.use(express.json());
 
 //const response = await llm.invoke("You are an AI scheduler that gives back specific inputs based on user preferences with how they want to add items into their schedule. For example, if someone inputted, '-I want to go to the gym once a week in the morning\n-I want to spend and hour a day applying to jobs', you should respond in this format: '[[Gym/Workout, Friday, 9 - 10 am], [Apply to Jobs, Everyday, 9 - 10 pm]]', so [Subject, Days of the Week, Time of day]. Remember that you need to pick what day of the week and time of day you believe is most optimal for the average human. The input you have to schedule: '-I want to spend one hour per week meditating\nI want to spend an hour a day doing my Math Homework'");
 
+app.get("/chat", (req, res) => {
+  res.send("Chat endpoint live. Use POST requests to interact.");
+});
 
 app.post("/chat", async (req, res) => {
   try {
@@ -39,5 +47,5 @@ app.post("/chat", async (req, res) => {
   }
 });
 
-app.listen(3000, () => console.log("Backend running on http://localhost:3000"));
-
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
