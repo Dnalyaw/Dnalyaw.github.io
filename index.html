@@ -13,9 +13,69 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;400&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg:#0b1020; --bg-alt:#0f1630; --card:#111a3a; --border:#1b2550; --text:#e6e8f2; --muted:#9aa4c7; --brand:#6c8cff; --brand-2:#5eead4; --shadow:0 10px 30px rgba(0,0,0,0.35); }
+        body#data-projects { background: radial-gradient(1200px 600px at 10% -10%, rgba(92,105,255,.25), transparent), radial-gradient(1200px 600px at 110% 10%, rgba(94,234,212,.18), transparent), var(--bg); color: var(--text); }
+        /* hide legacy navbar, we'll use new topnav */
+        #navbar { display: none !important; }
+
+        /* Top Navigation to match projects pages */
+        .topnav { position: sticky; top:0; z-index:1000; background: rgba(11,16,32,.8); backdrop-filter: blur(10px); border-bottom:1px solid var(--border); }
+        .topnav-inner { max-width:1100px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; justify-content:space-between; }
+        .topnav .brand { font-family:'Montserrat',sans-serif; font-weight:800; color:var(--text); text-decoration:none; letter-spacing:.3px; }
+        .topnav nav { display:flex; gap:18px; }
+        .topnav nav a { color:var(--muted); text-decoration:none; font-size:14px; padding:6px 8px; border-radius:8px; transition:color .2s, background .2s; }
+        .topnav nav a:hover { color:var(--text); background:rgba(255,255,255,.05); }
+
+        /* Footer (tech) */
+        footer.tech { border-top:1px solid var(--border); background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.2)); padding:30px 0 50px; color:var(--muted); }
+        footer.tech .footer-inner { max-width:1100px; margin:0 auto; padding:0 20px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+        footer.tech .links { display:flex; gap:14px; }
+        footer.tech a { color:var(--text); text-decoration:none; }
+        footer.tech a:hover { color: var(--brand-2); }
+        
+        /* Home hero */
+        .hero-home {
+            max-width: 1100px;
+            margin: 50px auto 40px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 28px;
+            align-items: center;
+        }
+        @media (max-width: 900px) { .hero-home { grid-template-columns: 1fr; } }
+        .hero-content .pill { display: inline-block; padding: 8px 12px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.1)); font-size: 12px; margin-bottom: 10px; }
+        .headline { font-family: 'Montserrat', sans-serif; font-size: 48px; line-height: 1.1; margin: 6px 0 10px; }
+        .headline .gradient { background: linear-gradient(90deg, var(--brand), var(--brand-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .subhead { color: var(--muted); font-size: 16px; line-height: 1.7; margin: 10px 0 16px; }
+        .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+        .cta { padding: 10px 14px; border-radius: 12px; border: 1px solid var(--border); color: var(--text); text-decoration: none; background: linear-gradient(180deg, rgba(108,140,255,0.18), rgba(108,140,255,0.05)); font-size: 14px; }
+        .cta.secondary { background: linear-gradient(180deg, rgba(94,234,212,0.2), rgba(94,234,212,0.06)); }
+        .cta.ghost { background: transparent; }
+        .cta:hover { border-color: var(--brand); }
+        .hero-art { position: relative; height: 420px; }
+        .hero-art .orb { position: absolute; inset: 0; border-radius: 20px; background: radial-gradient(120px 120px at 30% 30%, rgba(108,140,255,0.45), transparent), radial-gradient(160px 160px at 80% 60%, rgba(94,234,212,0.35), transparent), linear-gradient(180deg, rgba(255,255,255,0.04), rgba(0,0,0,0.15)); border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; z-index: 0; }
+        .hero-art .grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px); background-size: 22px 22px; opacity: 0.25; z-index: 2; pointer-events: none; }
+        .hero-art img { position: absolute; inset: 12px; width: calc(100% - 24px); height: calc(100% - 24px); object-fit: cover; border-radius: 16px; opacity: 0.95; box-shadow: var(--shadow); z-index: 1; }
+        
+        /* About section lines */
+        #about .section-title #line { background: #ffffff; border-color: #ffffff; }
+    </style>
     
+    <body id="data-projects">
     
-    <body>
+        <!-- Top Navigation -->
+        <header class="topnav">
+            <div class="topnav-inner">
+                <a class="brand" href="index.html">Wayland La</a>
+                <nav>
+                    <a href="index.html">Home</a>
+                    <a href="data_projects.html">Main Portfolio</a>
+                    <a href="projects.html">Other Projects</a>
+                </nav>
+            </div>
+        </header>
     
         <nav id="navbar">
             <label class="logo" id="logo">Wayland La</label>
@@ -31,29 +91,31 @@
               </ul>
         </nav>
 
-        <a href="wayland-la-RESUME.pdf" download class="download-btn">Download Resume
-            <img src="download.png">
-        </a>
-        
-        <div class="intro">
-            <div class="opening-txt">
-                <img src="Screenshot 2023-06-07 144259.png" alt="Shanghai" class="shanghai-photo">
-                <h4 id="typedTxt"></h4>
-                <h1 id="bigTxt"><strong>Wayland.</strong></h1>
-                <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
-                <h5>This is my personal website where you will get to learn about my background, look at my personal projects, and dive into other information about me. </h5>
-                <br>
-                <button id="seeMore" onclick="party()">Click to start the party!</button>
+        <!-- New creative hero section -->
+        <section class="hero-home">
+            <div class="hero-content">
+                <span class="pill">Data Science • AI/ML • Engineering</span>
+                <div class="headline">Hi, I’m <span class="gradient">Wayland</span> — building data-driven products and stories.</div>
+                <div class="subhead">I’m a UC Berkeley Data Science student exploring the intersection of education, AI, and software. Dive into my projects, resume, and experiments below.</div>
+                <div class="actions">
+                    <a class="cta" href="data_projects.html">View Data/ML Portfolio</a>
+                    <a class="cta secondary" href="projects.html">Explore Other Projects</a>
+                    <a class="cta ghost" href="wayland-la-RESUME.pdf" download>Download Resume</a>
+                </div>
             </div>
-            
-        </div>
+            <div class="hero-art">
+                <div class="orb"></div>
+                <div class="grid"></div>
+                <img src="Screenshot 2023-06-07 144259.png" alt="Wayland photo">
+            </div>
+        </section>
         
         <div id="empty"></div>
         <div id="empty"></div>
-        <section>
+        <section id="about">
             <div class="section-title">
                 <div id="line"></div>
-                <h3>About Me</h3>
+                <h3 style="color: #ffffff;">About Me</h3>
                 <div id="line"></div>
             </div>
             
@@ -62,13 +124,6 @@
         </section>
 
         <section id="resume">
-            <div class="section-title">
-                <div id="line"></div>
-                <h3>My Resume</h3>
-                <div id="line"></div>
-            </div>
-            
-                <h5 id="skills">Hard Skills: Python (Machine Learning & Neural Networks) | Java | HTML, CSS, and JavaScript <br>Soft Skills: Team Player, Leadership, Problem Solving, Strategic Planning, Strong Communication</h5>
 
             <h4>Timeline</h4>
 
@@ -152,23 +207,37 @@
         </section>
 
 
-        <footer>
-            <div class="footer-content">
-                <div class="footer-title">
-                    <div id="line"></div>
-                    <h3>My Contacts</h3>
-                    <div id="line"></div>
+        <footer class="tech">
+            <div class="footer-inner">
+                <div>© <span id="year"></span> Wayland La</div>
+                <div class="links">
+                    <a href="mailto: waytothelandla@gmail.com" target="_blank">Email</a>
+                    <a href="https://github.com/Dnalyaw" target="_blank" rel="noopener">GitHub</a>
+                    <a href="https://www.linkedin.com/in/waylandla" target="_blank" rel="noopener">LinkedIn</a>
+                    <a href="https://www.instagram.com/waylaand/" target="_blank" rel="noopener">Instagram</a>
                 </div>
-                
-                <ul class="socials">
-                    <li><a href="mailto: waytothelandla@gmail.com" target="_blank"><img src="contact_photos/gmail.png" alt="gmail"></a></li>
-                    <li><a href="https://www.instagram.com/waylaand/" target="_blank"><img src="contact_photos/instagram.png" alt="instagram"></a></li>
-                    <li><a href="https://github.com/Dnalyaw" target="_blank"><img src="contact_photos/github.png" alt="github"></li>
-                    <li><a href="https://www.linkedin.com/in/waylandla" target="_blank"><img src="contact_photos/linkedin.png" alt="linkedin"></li>
-                </ul>
             </div>
-            
         </footer>
+        
+        <script>
+        (function() {
+            var ageEl = document.getElementById('age');
+            if (!ageEl) return;
+            // Use local time for birthday to avoid timezone surprises
+            var birth = new Date(2005, 10, 17, 0, 0, 0); // Months are 0-indexed: 10 = November
+            var MS_PER_YEAR = 365.2425 * 24 * 60 * 60 * 1000; // average tropical year
+            function updateAge() {
+                var now = new Date();
+                var years = (now - birth) / MS_PER_YEAR;
+                ageEl.textContent = years.toFixed(9);
+            }
+            updateAge();
+            setInterval(updateAge, 50);
+            // Footer year convenience
+            var yearSpans = document.querySelectorAll('#year');
+            yearSpans.forEach(function(el){ el.textContent = new Date().getFullYear(); });
+        })();
+        </script>
         
 </body>
 </html>

@@ -12,141 +12,174 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;400&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg:#0b1020; --bg-alt:#0f1630; --card:#111a3a; --border:#1b2550; --text:#e6e8f2; --muted:#9aa4c7; --brand:#6c8cff; --brand-2:#5eead4; --shadow:0 10px 30px rgba(0,0,0,0.35); }
+        body#data-projects { background: radial-gradient(1200px 600px at 10% -10%, rgba(92,105,255,.25), transparent), radial-gradient(1200px 600px at 110% 10%, rgba(94,234,212,.18), transparent), var(--bg); color: var(--text); }
+        /* hide legacy content */
+        #navbar, .webpage-top, #empty, #resume, body > footer:not(.tech) { display: none !important; }
+
+        .topnav { position: sticky; top:0; z-index:1000; background: rgba(11,16,32,.8); backdrop-filter: blur(10px); border-bottom:1px solid var(--border); }
+        .topnav-inner { max-width:1100px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; justify-content:space-between; }
+        .topnav .brand { font-family:'Montserrat',sans-serif; font-weight:800; color:var(--text); text-decoration:none; letter-spacing:.3px; }
+        .topnav nav { display:flex; gap:18px; }
+        .topnav nav a { color:var(--muted); text-decoration:none; font-size:14px; padding:6px 8px; border-radius:8px; transition:color .2s, background .2s; }
+        .topnav nav a:hover { color:var(--text); background:rgba(255,255,255,.05); }
+
+        .hero { max-width:1100px; margin:80px auto 30px; padding:0 20px; text-align:center; }
+        .hero h1 { font-family:'Montserrat',sans-serif; font-size:42px; background:linear-gradient(90deg,var(--brand),var(--brand-2)); -webkit-background-clip:text; background-clip:text; color:transparent; margin-bottom:12px; }
+        .hero p { color:var(--muted); font-size:16px; line-height:1.7; max-width:820px; margin:0 auto; }
+
+        .controls { max-width:1100px; margin:24px auto 8px; padding:0 20px; display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+        .pill { padding:8px 12px; border:1px solid var(--border); border-radius:999px; background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(0,0,0,.1)); color:var(--muted); font-size:12px; }
+
+        .projects-grid { max-width:1100px; margin:18px auto 90px; padding:0 20px; display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:22px; }
+        @media (max-width:1000px){ .projects-grid{ grid-template-columns:repeat(2,1fr);} }
+        @media (max-width:640px){ .projects-grid{ grid-template-columns:1fr;} }
+
+        .project-card { background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.15)); border:1px solid var(--border); border-radius:16px; overflow:hidden; box-shadow:var(--shadow); transition:transform .25s, box-shadow .25s, border-color .25s; }
+        .project-card:hover { transform:translateY(-4px); box-shadow:0 15px 40px rgba(0,0,0,.45); border-color:rgba(108,140,255,.45); }
+        .project-thumb { display:block; height:170px; background:#0c142d; overflow:hidden; }
+        .project-thumb img { width:100%; height:100%; object-fit:cover; }
+        .project-body { padding:16px 16px 18px; }
+        .project-title { font-size:18px; font-weight:700; margin-bottom:6px; }
+        .project-desc { color:var(--muted); font-size:13px; line-height:1.6; min-height:40px; }
+        .tags { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 14px; }
+        .tag { font-size:11px; color:#b7c0e0; border:1px solid var(--border); padding:4px 8px; border-radius:8px; background:rgba(255,255,255,.03); }
+        .card-actions { display:flex; gap:10px; }
+        .btn { padding:8px 12px; border-radius:10px; font-size:12px; border:1px solid var(--border); color:var(--text); background:linear-gradient(180deg,rgba(108,140,255,.18),rgba(108,140,255,.05)); text-decoration:none; }
+        .btn:hover { border-color: var(--brand); }
+
+        footer.tech { border-top:1px solid var(--border); background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.2)); padding:30px 0 50px; color:var(--muted); }
+        footer.tech .footer-inner { max-width:1100px; margin:0 auto; padding:0 20px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+        footer.tech .links { display:flex; gap:14px; }
+        footer.tech a { color:var(--text); text-decoration:none; }
+        footer.tech a:hover { color: var(--brand-2); }
+    </style>
     
     
-    <body>
+    <body id="data-projects">
     
-        <nav id="navbar">
-            <label class="logo">Wayland La</label>
-            <a href="#" class="toggle-button">
-              <span class="bar"></span>
-              <span class="bar"></span>
-              <span class="bar"></span>
-            </a>
-            <ul class="navbar-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="data_projects.html">Main Portfolio</a></li>
-                <li><a href="#">Other Projects</a></li>
-            </ul>
-        </nav>
-
-        <img class="webpage-top"src="webpage-top-3.png" alt="personalprojects-bg">
-        
-        <div id="empty"></div>
-
-        <section id="resume">
-            <div class="section-title">
-                <div id="line"></div>
-                <h3>Other Side Projects</h3>
-                <div id="line"></div>
+        <!-- Top Navigation -->
+        <header class="topnav">
+            <div class="topnav-inner">
+                <a class="brand" href="index.html">Wayland La</a>
+                <nav>
+                    <a href="index.html">Home</a>
+                    <a href="data_projects.html">Main Portfolio</a>
+                    <a href="projects.html">Other Projects</a>
+                </nav>
             </div>
-            
-            <h4>Games</h4>
+        </header>
 
-            <div class="resume-content">
-                <ul class="projects">
-                    <li>
-                        <a href="https://replit.com/@WayL/Wordle-Game?v=1" target="_blank"><img src="coding_photos/Screenshot 2023-04-07 182952.png" alt="Westmoor High School"></a>
-                        <div class="resume-txt">
-                            <div class="title-and-location">
-                                <h5 class="title"><a href="https://replit.com/@WayL/Wordle-Game?v=1" target="_blank">Wordle Unlimited</a></h5>
-                                <h5 class="location">Java Swing</h5>
-                            </div>
-                            <p>↑ Click the title to play this!<br>- Created interactive GUI using Java Swing, where I recreated the famous game Wordle that allowed the user to play infinitely
-                                <br><strong>- Skills Used: Java Swing, Object Oriented Programming</strong></p>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="https://replit.com/@WayL/Match-Game" target="_blank"><img src="coding_photos/Screenshot 2023-04-07 183530.png" alt="Westmoor High School"></a>
-                        <div class="resume-txt">
-                            <div class="title-and-location">
-                                <h5 class="title"><a href="https://replit.com/@WayL/Match-Game" target="_blank">Match Game</a></h5>
-                                <h5 class="location">Java Swing</h5>
-                            </div>
-                            <p>↑ Click the title to play this!<br>- Created interactive GUI using Java Swing, where you can test your memorization and mouse speed by seeing how quickly you can match the buttons
-                                <br><strong>- Skills Used: Java Swing, Object Oriented Programming</strong></p>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="https://replit.com/@WayL/chess?v=1" target="_blank"><img src="coding_photos/Screenshot 2023-04-07 183702.png" alt="atdp_logo"></a>
-                        <div class="resume-txt">
-                            <div class="title-and-location">
-                                <h5 class="title"><a href="https://replit.com/@WayL/chess?v=1" target="_blank">Chess Recreated</a></h5>
-                                <h5 class="location">Java Swing</h5>
-                            </div>
-                            <p>↑ Click the title to play this!<br>- Created an interactive GUI using Java Swing, where over the course of a month I recreated the basic game of chess.
-                                <br><strong>- Skills Used: Java Swing, Object Oriented Programming</strong>
-                                </p>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="https://replit.com/@WayL/pong?v=1" target="_blank"><img src="coding_photos/Screenshot 2023-04-07 180914.png" alt="atdp_logo"></a>
-                        <div class="resume-txt">
-                            <div class="title-and-location">
-                                <h5 class="title"><a href="https://replit.com/@WayL/pong?v=1" target="_blank">Pong Recreated</a></h5>
-                                <h5 class="location">Pygame</h5>
-                            </div>
-                            <p>↑ Click the title to play this!<br>- Created an interactive GUI using Pygame, where after learning Pygame from Youtube courses I tried to test myself by making one of my favorite games
-                                <br><strong>- Skills Used: Python, Pygame</strong>
-                                </p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-			<h4>Websites</h4>
-			<div class="resume-content">
-                <ul class="projects">
-                    <li>
-                        <a href="Artifact 1/chess_home_txt_La.html" target="_blank"><img src="coding_photos/Screenshot 2023-04-11 100948.png"></a>
-                        <div class="resume-txt">
-                            <div class="title-and-location">
-                                <h5 class="title"><a href="Artifact 1/chess_home_txt_La.html" target="_blank">Artifact 1: Chess Art</a></h5>
-                                <h5 class="location">HTML, CSS</h5>
-                            </div>
-                            <p>↑ Click the title to see this!<br>- Using the shapes given in HTML and CSS, I was able to create chess artwork <br>- Although the pieces are not able to move and chess cannot be played like the example above, the gist of this project was to give details using the shapes given
-                                <br><strong>- Skills Used: HTML, CSS</strong></p>
-                        </div>
-                    </li>
-					           <li>
-                        <a href="https://roadsideattractions.cf/" target="_blank"><img src="coding_photos/Screenshot 2023-04-11 102647.png"></a>
-                        <div class="resume-txt">
-                            <div class="title-and-location">
-                                <h5 class="title"><a href="https://roadsideattractions.cf/" target="_blank">Artifact 2: Road Trip Website</a></h5>
-                                <h5 class="location">HTML, CSS, JavaScript</h5>
-                            </div>
-                            <p>↑ Click the title to see this!<br>- First project done with the help of classmates in my Web Development class at Westmoor <br>- Shows a mock roadtrip that we would go on where we visited random roadside attractions around the western side of the United States
-                                <br><strong>- Skills Used: HTML, CSS, JavaScript</strong></p>
-                        </div>
-                    </li>
-					           <li>
-                        <a href="https://web-development-final-project.wayl.repl.co/" target="_blank"><img src="coding_photos/co2023webpage.png"></a>
-                        <div class="resume-txt">
-                            <div class="title-and-location">
-                                <h5 class="title"><a href="https://web-development-final-project.wayl.repl.co/" target="_blank">Westmoor High School Class of 2023 Website</a></h5>
-                                <h5 class="location">HTML, CSS, JavaScript</h5>
-                            </div>
-                            <p>↑ Click the title to see this!<br>- Second project done with the help of classmates in my Web Development class at Westmoor <br>- Shows an Overview of the year for the Westmoor Class of 2023
-                                <br><strong>- Skills Used: HTML, CSS, JavaScript</strong></p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+        <!-- Hero -->
+        <div class="hero">
+            <h1>Other Projects</h1>
+            <p>Games, websites, and experiments that showcase creative coding and interaction.</p>
+        </div>
+
+        <div class="controls">
+            <span class="pill">Games</span>
+            <span class="pill">Web</span>
+            <span class="pill">Java</span>
+            <span class="pill">Python</span>
+        </div>
+
+        <!-- Projects Grid -->
+        <section class="projects-grid">
+            <article class="project-card">
+                <a class="project-thumb" href="https://replit.com/@WayL/Wordle-Game?v=1" target="_blank" rel="noopener">
+                    <img src="coding_photos/Screenshot 2023-04-07 182952.png" alt="Wordle Unlimited">
+                </a>
+                <div class="project-body">
+                    <div class="project-title">Wordle Unlimited</div>
+                    <div class="project-desc">Endless Wordle clone with a desktop GUI.</div>
+                    <div class="tags"><span class="tag">Java Swing</span><span class="tag">OOP</span></div>
+                    <div class="card-actions"><a class="btn" href="https://replit.com/@WayL/Wordle-Game?v=1" target="_blank" rel="noopener">Play</a></div>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <a class="project-thumb" href="https://replit.com/@WayL/Match-Game" target="_blank" rel="noopener">
+                    <img src="coding_photos/Screenshot 2023-04-07 183530.png" alt="Match Game">
+                </a>
+                <div class="project-body">
+                    <div class="project-title">Match Game</div>
+                    <div class="project-desc">Memory game to test speed and accuracy.</div>
+                    <div class="tags"><span class="tag">Java Swing</span><span class="tag">OOP</span></div>
+                    <div class="card-actions"><a class="btn" href="https://replit.com/@WayL/Match-Game" target="_blank" rel="noopener">Play</a></div>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <a class="project-thumb" href="https://replit.com/@WayL/chess?v=1" target="_blank" rel="noopener">
+                    <img src="coding_photos/Screenshot 2023-04-07 183702.png" alt="Chess Recreated">
+                </a>
+                <div class="project-body">
+                    <div class="project-title">Chess Recreated</div>
+                    <div class="project-desc">Classic chess implemented with a custom GUI.</div>
+                    <div class="tags"><span class="tag">Java Swing</span><span class="tag">OOP</span></div>
+                    <div class="card-actions"><a class="btn" href="https://replit.com/@WayL/chess?v=1" target="_blank" rel="noopener">Play</a></div>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <a class="project-thumb" href="https://replit.com/@WayL/pong?v=1" target="_blank" rel="noopener">
+                    <img src="coding_photos/Screenshot 2023-04-07 180914.png" alt="Pong Recreated">
+                </a>
+                <div class="project-body">
+                    <div class="project-title">Pong Recreated</div>
+                    <div class="project-desc">Arcade classic built with Python and Pygame.</div>
+                    <div class="tags"><span class="tag">Python</span><span class="tag">Pygame</span></div>
+                    <div class="card-actions"><a class="btn" href="https://replit.com/@WayL/pong?v=1" target="_blank" rel="noopener">Play</a></div>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <a class="project-thumb" href="Artifact 1/chess_home_txt_La.html" target="_blank" rel="noopener">
+                    <img src="coding_photos/Screenshot 2023-04-11 100948.png" alt="Artifact 1: Chess Art">
+                </a>
+                <div class="project-body">
+                    <div class="project-title">Artifact 1: Chess Art</div>
+                    <div class="project-desc">Chess artwork and layout crafted with pure HTML/CSS.</div>
+                    <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span></div>
+                    <div class="card-actions"><a class="btn" href="Artifact 1/chess_home_txt_La.html" target="_blank" rel="noopener">Open</a></div>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <a class="project-thumb" href="https://roadsideattractions.cf/" target="_blank" rel="noopener">
+                    <img src="coding_photos/Screenshot 2023-04-11 102647.png" alt="Artifact 2: Road Trip Website">
+                </a>
+                <div class="project-body">
+                    <div class="project-title">Artifact 2: Road Trip Website</div>
+                    <div class="project-desc">A class project showcasing a cross-country trip with attractions.</div>
+                    <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+                    <div class="card-actions"><a class="btn" href="https://roadsideattractions.cf/" target="_blank" rel="noopener">Open</a></div>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <a class="project-thumb" href="https://web-development-final-project.wayl.repl.co/" target="_blank" rel="noopener">
+                    <img src="coding_photos/co2023webpage.png" alt="WHS Class of 2023 Website">
+                </a>
+                <div class="project-body">
+                    <div class="project-title">WHS Class of 2023 Website</div>
+                    <div class="project-desc">A celebratory website highlighting memorable moments and events.</div>
+                    <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+                    <div class="card-actions"><a class="btn" href="https://web-development-final-project.wayl.repl.co/" target="_blank" rel="noopener">Open</a></div>
+                </div>
+            </article>
         </section>
 
-        <footer>
-            <div class="footer-content">
-                <div class="footer-title">
-                    <div id="line"></div>
-                    <h3>My Contacts</h3>
-                    <div id="line"></div>
+        <footer class="tech">
+            <div class="footer-inner">
+                <div>© <span id="year"></span> Wayland La</div>
+                <div class="links">
+                    <a href="mailto: waylandla@gmail.com" target="_blank">Email</a>
+                    <a href="https://github.com/Dnalyaw" target="_blank" rel="noopener">GitHub</a>
+                    <a href="https://www.linkedin.com/in/waylandla" target="_blank" rel="noopener">LinkedIn</a>
+                    <a href="https://www.instagram.com/waylaand/" target="_blank" rel="noopener">Instagram</a>
                 </div>
-                
-                <ul class="socials">
-                    <li><a href="mailto: waylandla@gmail.com" target="_blank"><img src="contact_photos/gmail.png" alt="gmail"></a></li>
-                    <li><a href="https://github.com/Dnalyaw" target="_blank"><img src="contact_photos/github.png" alt="github"></li>
-                    <li><a href="https://www.instagram.com/waylaand/" target="_blank"><img src="contact_photos/instagram.png" alt="instagram"></a></li>
-                    <li><a href="https://www.linkedin.com/in/waylandla" target="_blank"><img src="contact_photos/linkedin.png" alt="linkedin"></li>
-                </ul>
             </div>
         </footer>
 </body>

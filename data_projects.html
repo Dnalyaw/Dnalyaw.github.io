@@ -12,146 +12,374 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;400&display=swap" rel="stylesheet">
-    
-    
-    <body>
-    
-        <nav id="navbar">
-            <label class="logo">Wayland La</label>
-            <a href="#" class="toggle-button">
-              <span class="bar"></span>
-              <span class="bar"></span>
-              <span class="bar"></span>
-            </a>
-            <ul class="navbar-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#">Main Portfolio</a></li>
-                <li><a href="projects.html">Other Projects</a></li>
-            </ul>
-        </nav>
+    <style>
+        /* Scoped styles for this page only */
+        :root {
+            --bg: #0b1020;
+            --bg-alt: #0f1630;
+            --card: #111a3a;
+            --border: #1b2550;
+            --text: #e6e8f2;
+            --muted: #9aa4c7;
+            --brand: #6c8cff;
+            --brand-2: #5eead4;
+            --shadow: 0 10px 30px rgba(0,0,0,0.35);
+        }
 
-        <img class="webpage-top"src="webpage-top-3.png" alt="personalprojects-bg">
+        body#data-projects {
+            background: radial-gradient(1200px 600px at 10% -10%, rgba(92, 105, 255, 0.25), transparent),
+                        radial-gradient(1200px 600px at 110% 10%, rgba(94, 234, 212, 0.18), transparent),
+                        var(--bg);
+            color: var(--text);
+        }
+
+        /* Hero */
+        .hero {
+            max-width: 1100px;
+            margin: 80px auto 30px;
+            padding: 0 20px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 42px;
+            letter-spacing: 0.4px;
+            background: linear-gradient(90deg, var(--brand), var(--brand-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 12px;
+        }
+        .hero p {
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.7;
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        /* Controls */
+        .controls {
+            max-width: 1100px;
+            margin: 24px auto 8px;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .pill {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.1));
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* Grid */
+        .projects-grid {
+            max-width: 1100px;
+            margin: 18px auto 90px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+        }
+        @media (max-width: 1000px) {
+            .projects-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 640px) {
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+
+        .project-card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(0,0,0,0.15));
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.45);
+            border-color: rgba(108, 140, 255, 0.45);
+        }
+        .project-thumb {
+            display: block;
+            height: 170px;
+            background: #0c142d;
+            overflow: hidden;
+        }
+        .project-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .project-body {
+            padding: 16px 16px 18px;
+        }
+        .project-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .project-desc {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
+            min-height: 40px;
+        }
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 12px 0 14px;
+        }
+        .tag {
+            font-size: 11px;
+            color: #b7c0e0;
+            border: 1px solid var(--border);
+            padding: 4px 8px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.03);
+        }
+        .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 12px;
+            border: 1px solid var(--border);
+            color: var(--text);
+            background: linear-gradient(180deg, rgba(108,140,255,0.18), rgba(108,140,255,0.05));
+            text-decoration: none;
+            transition: background .2s ease, border-color .2s ease;
+        }
+        .btn:hover { border-color: var(--brand); }
+        .btn.secondary {
+            background: linear-gradient(180deg, rgba(94,234,212,0.2), rgba(94,234,212,0.06));
+        }
+
+        /* Footer */
+        footer.tech {
+            border-top: 1px solid var(--border);
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.2));
+            padding: 30px 0 50px;
+            color: var(--muted);
+        }
+        footer.tech .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        footer.tech .links {
+            display: flex;
+            gap: 14px;
+        }
+        footer.tech a { color: var(--text); text-decoration: none; }
+        footer.tech a:hover { color: var(--brand-2); }
+
+        /* Top Navigation */
+        .topnav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(11, 16, 32, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+        .topnav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .topnav .brand {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: 0.3px;
+        }
+        .topnav nav {
+            display: flex;
+            gap: 18px;
+        }
+        .topnav nav a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 14px;
+            padding: 6px 8px;
+            border-radius: 8px;
+            transition: color .2s ease, background .2s ease;
+        }
+        .topnav nav a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+    </style>
+    
+    
+    <body id="data-projects">
         
-        <div id="empty"></div>
-
-        <section id="resume">
-            <div class="section-title">
-                <div id="line"></div>
-                <h3>Data/Machine Learning Projects</h3>
-                <div id="line"></div>
+        <!-- Top Navigation -->
+        <header class="topnav">
+            <div class="topnav-inner">
+                <a class="brand" href="index.html">Wayland La</a>
+                <nav>
+                    <a href="index.html">Home</a>
+                    <a href="#">Main Portfolio</a>
+                    <a href="projects.html">Other Projects</a>
+                </nav>
             </div>
+        </header>
 
-            <div class="resume-content">
-                <h5>Hey! I'm Wayland, and I'm interested in the intersection of Education and Data Science, AI/ML, and Software Engineering. I create interactive visualizations and data-driven stories about media, technology, and culture. Feel free to look into my notable projects!</h5>
-            </div>
-            </br>
-            </br>
-            </br>
-            </br>
-            
-            
-            <div class="resume-content">
+        <!-- Techy Data Projects Page -->
+        <div class="hero">
+            <h1>Wayland's Data & Machine Learning Projects</h1>
+            <p>Hi, I'm Wayland, a Data Science Major at UC Berkeley who is interested in the intersection of Education with Data Science and AI/ML. Here is a collection of my work across AI, analytics, and interactive data storytelling.</p>
+        </div>
 
-                <ul class="projects">
-                    
-                    <li>
-                        <h1>Education Technology (EdTech) Projects:</h1>
-                        </br>
-                        <a href="https://github.com/Dnalyaw/CNN-Chatbot" target="_blank"><img src="resume_photos\cnn-logo.jpg" alt="Westmoor High School"></a>
-                        <div class="resume-txt">
-                            <div class="title-and-location">
-                                <h5 class="title"><a href="https://github.com/Dnalyaw/CNN-Chatbot" target="_blank">CNN Chatbot (RAG Model)</a></h5>
-                                <h5 class="location"></h5>
-                            </div>
-                            <p>⬅️ Click for Github Repo!<br>- A summarization tool catered to CNN articles that can contextualize its responses to queries on a previously stated topic </p>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="https://github.com/Dnalyaw/Research-Files" target="_blank"><img src="resume_photos\ongb_logo.jpg" alt="Westmoor High School"></a>
-                        <div class="resume-txt">
-                            <div class="title-and-location">
-                                <h5 class="title"><a href="https://github.com/Dnalyaw/Research-Files" target="_blank">Student Absenteeism Prediction Model</a></h5>
-                                <h5 class="location"></h5>
-                            </div>
-                            <p>⬅️ Click for Github Repo!
-                                <br>- Using artificial neural networks, created >80% accurate diagnosis for Parkinson’s Disease, comparing it to XGBoost ML
-                                <br><strong>- Skills Used: Tensorflow/Keras Neural Networks, Machine Learning (XGBoost)</strong></p>
-                        </div>
-                    </li>
-                    
-                    <li>
-                        <h1>Sports Analytics Projects:</h1>
-                        </br>
-                        <a href="https://github.com/Dnalyaw/NBA-MVP_Prediction/tree/main" target="_blank"><img src="resume_photos\nba-mvp-trophy.jpg" alt="Westmoor High School"></a>
-                        <div class="resume-txt">
-                            <div class="title-and-location">
-                                <h5 class="title"><a href="https://github.com/Dnalyaw/NBA-MVP_Prediction/tree/main" target="_blank">NBA MVP Prediction Model</a></h5>
-                                <h5 class="location"></h5>
-                            </div>
-                            <p>⬅️ Click for Github Repo!<br>- A prediction model using RandomForest to predict the MVP based on current NBA Data
-                                <br><strong>- Skills Used: RandomForest, Ridge Regression</strong></p>
-                        </div>
-                    </li>
+        <div class="controls">
+            <span class="pill">AI/ML</span>
+            <span class="pill">Data Engineering</span>
+            <span class="pill">NLP</span>
+            <span class="pill">Visualization</span>
+            <span class="pill">Education</span>
+        </div>
 
-                    <li>
-                        <h1>Other Data/ML Projects:</h1>
-                        </br>
-                        <a href="https://github.com/Dnalyaw/Parkinson-s-Disease-Classification/tree/main/Untitled%20Folder" target="_blank"><img src="coding_photos/parkinson.png" alt="Westmoor High School"></a>
-                        <div class="resume-txt">
-                            <div class="title-and-location">
-                                <h5 class="title"><a href="https://github.com/Dnalyaw/Parkinson-s-Disease-Classification/tree/main/Untitled%20Folder" target="_blank">Parkinson's Disease Classifier</a></h5>
-                                <h5 class="location">Python (Jupyter)</h5>
-                            </div>
-                            <p>⬅️ Click for Github Repo!<br>- Using artificial neural networks, created >90% accurate diagnosis for Parkinson’s Disease, comparing it to XGBoost ML<br>- Includes Visualizations and finds correlations within the data
-                                <br><strong>- Skills Used: Tensorflow/Keras Deep Learning Nerual Networks, Sklearn, XGBoost Classifier</strong></p>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="https://github.com/Dnalyaw/SalaryPrediction/tree/main/ML%20-%20Personal%20Projects" target="_blank"><img src="coding_photos/salary.png" alt="Westmoor High School"></a>
-                        <div class="resume-txt">
-                            <div class="title-and-location">
-                                <h5 class="title"><a href="https://github.com/Dnalyaw/SalaryPrediction/tree/main/ML%20-%20Personal%20Projects" target="_blank">Annual Salary Prediction</a></h5>
-                                <h5 class="location">Python (Jupyter)</h5>
-                            </div>
-                            <p>⬅️ Click for Github Repo!<br>- Using two Kaggle datasets (Glassdoor) with information (education, experience, etc.) to predict annual salary 
-                                <br>- After Data Preprocessing, EDA, and visualizations to understand dataset, tested Regression Algorithms for optimization
-                                <br>- Two files comparing the difference of accuracy, NLP Count Vectorizer vs simple One Hot Encoding
-                                <br>- >95% accuracy using NLP and Count Vectorizer and tweaking using GridSearchCV
-                                
-                                <br><strong>- Skills Used: NLP (Count Vectorizer), ML (Decision Tree Regressor), Preprocessing, EDA</strong></p>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="https://docs.google.com/presentation/d/1WCw16sZJW2-LMM6ybz3q9F8bjK5nHTOTyiCH9m-ghK8/edit#slide=id.g2cc030fa485_0_0" target="_blank"><img src="coding_photos/noise.png" alt="atdp_logo"></a>
-                        <div class="resume-txt">
-                            <div class="title-and-location">
-                                <h5 class="title"><a href="https://deepnote.com/workspace/noisepollutionapp-f35e10a0-b4b9-497f-ae84-ff3cb4867d06/project/NoiseMapping-DSS-Decal-a3933cba-0f92-4d17-b31d-74f7de7b78a9/notebook/c278aa94750d44cf87d27d43164491ba" target="_blank">Noise Pollution in the US Analysis</a></h5>
-                                <h5 class="location">Python (Deepnote)</h5>
-                            </div>
-                            <p>⬅️ Click to see this project!<br>- Hypothesis tests on correlations between excess noise and Population Density, using correlations and histograms
-                                <br>- Based on database of major cities in the US and their noise pollution created visualizations to predict excess noise based on variables 
-                                <br><strong>- Skills Used: Machine Learning w/ Sklearn, Hypothesis Testing, EDA</strong></p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+        <section class="projects-grid">
+            <article class="project-card">
+                <a class="project-thumb" href="aicheduler/frontend/schedule.html" target="_blank" rel="noopener">
+                    <img src="resume_photos/schedule.jpg" alt="AI Scheduler">
+                </a>
+                <div class="project-body">
+                    <div class="project-title">AI Scheduler</div>
+                    <div class="project-desc">Optimize personal calendars with AI. Parse ICS, visualize events, and insert smart recommendations.</div>
+                    <div class="tags">
+                        <span class="tag">JS</span><span class="tag">FullCalendar</span><span class="tag">LangChain (API)</span>
+                    </div>
+                    <div class="card-actions">
+                        <a class="btn" href="aicheduler/frontend/schedule.html" target="_blank" rel="noopener">Open App</a>
+                    </div>
+                </div>
+            </article>
 
+            <article class="project-card">
+                <a class="project-thumb" href="https://github.com/Dnalyaw/CNN-Chatbot" target="_blank" rel="noopener">
+                    <img src="resume_photos/cnn-logo.jpg" alt="CNN RAG Chatbot">
+                </a>
+                <div class="project-body">
+                    <div class="project-title">CNN Chatbot (RAG)</div>
+                    <div class="project-desc">Retriever-Augmented Generation over news articles with contextual Q&A and summarization.</div>
+                    <div class="tags">
+                        <span class="tag">Python</span><span class="tag">NLP</span><span class="tag">RAG</span>
+                    </div>
+                    <div class="card-actions">
+                        <a class="btn" href="https://github.com/Dnalyaw/CNN-Chatbot" target="_blank" rel="noopener">View Repo</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <a class="project-thumb" href="https://github.com/Dnalyaw/Research-Files" target="_blank" rel="noopener">
+                    <img src="resume_photos/ongb_logo.jpg" alt="Absenteeism Model">
+                </a>
+                <div class="project-body">
+                    <div class="project-title">Student Absenteeism Prediction</div>
+                    <div class="project-desc">Predict chronic absenteeism using tabular features and interpretable ML baselines.</div>
+                    <div class="tags">
+                        <span class="tag">Sklearn</span><span class="tag">XGBoost</span><span class="tag">EDA</span>
+                    </div>
+                    <div class="card-actions">
+                        <a class="btn" href="https://github.com/Dnalyaw/Research-Files" target="_blank" rel="noopener">View Repo</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <a class="project-thumb" href="https://github.com/Dnalyaw/NBA-MVP_Prediction/tree/main" target="_blank" rel="noopener">
+                    <img src="resume_photos/nba-mvp-trophy.jpg" alt="NBA MVP Prediction">
+                </a>
+                <div class="project-body">
+                    <div class="project-title">NBA MVP Prediction</div>
+                    <div class="project-desc">Model the MVP race with RandomForest and regularized baselines from live season data.</div>
+                    <div class="tags">
+                        <span class="tag">RandomForest</span><span class="tag">Ridge</span><span class="tag">Sports Analytics</span>
+                    </div>
+                    <div class="card-actions">
+                        <a class="btn" href="https://github.com/Dnalyaw/NBA-MVP_Prediction/tree/main" target="_blank" rel="noopener">View Repo</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <a class="project-thumb" href="https://github.com/Dnalyaw/Parkinson-s-Disease-Classification/tree/main/Untitled%20Folder" target="_blank" rel="noopener">
+                    <img src="coding_photos/parkinson.png" alt="Parkinson's Classifier">
+                </a>
+                <div class="project-body">
+                    <div class="project-title">Parkinson's Disease Classifier</div>
+                    <div class="project-desc">Neural network classifier with feature exploration and XGBoost comparison.</div>
+                    <div class="tags">
+                        <span class="tag">TensorFlow/Keras</span><span class="tag">Sklearn</span><span class="tag">XGBoost</span>
+                    </div>
+                    <div class="card-actions">
+                        <a class="btn" href="https://github.com/Dnalyaw/Parkinson-s-Disease-Classification/tree/main/Untitled%20Folder" target="_blank" rel="noopener">View Repo</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <a class="project-thumb" href="https://github.com/Dnalyaw/SalaryPrediction/tree/main/ML%20-%20Personal%20Projects" target="_blank" rel="noopener">
+                    <img src="coding_photos/salary.png" alt="Salary Prediction">
+                </a>
+                <div class="project-body">
+                    <div class="project-title">Annual Salary Prediction</div>
+                    <div class="project-desc">Model compensation using Glassdoor data, NLP features, and model selection.</div>
+                    <div class="tags">
+                        <span class="tag">NLP</span><span class="tag">Regression</span><span class="tag">GridSearchCV</span>
+                    </div>
+                    <div class="card-actions">
+                        <a class="btn" href="https://github.com/Dnalyaw/SalaryPrediction/tree/main/ML%20-%20Personal%20Projects" target="_blank" rel="noopener">View Repo</a>
+                    </div>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <a class="project-thumb" href="https://deepnote.com/workspace/noisepollutionapp-f35e10a0-b4b9-497f-ae84-ff3cb4867d06/project/NoiseMapping-DSS-Decal-a3933cba-0f92-4d17-b31d-74f7de7b78a9/notebook/c278aa94750d44cf87d27d43164491ba" target="_blank" rel="noopener">
+                    <img src="coding_photos/noise.png" alt="Noise Pollution Analysis">
+                </a>
+                <div class="project-body">
+                    <div class="project-title">Noise Pollution in the US</div>
+                    <div class="project-desc">Hypothesis testing and mapping of excess noise factors across US cities.</div>
+                    <div class="tags">
+                        <span class="tag">Visualization</span><span class="tag">Hypothesis Testing</span><span class="tag">Sklearn</span>
+                    </div>
+                    <div class="card-actions">
+                        <a class="btn secondary" href="https://docs.google.com/presentation/d/1WCw16sZJW2-LMM6ybz3q9F8bjK5nHTOTyiCH9m-ghK8/edit#slide=id.g2cc030fa485_0_0" target="_blank" rel="noopener">Slides</a>
+                        <a class="btn" href="https://deepnote.com/workspace/noisepollutionapp-f35e10a0-b4b9-497f-ae84-ff3cb4867d06/project/NoiseMapping-DSS-Decal-a3933cba-0f92-4d17-b31d-74f7de7b78a9/notebook/c278aa94750d44cf87d27d43164491ba" target="_blank" rel="noopener">Notebook</a>
+                    </div>
+                </div>
+            </article>
         </section>
 
-        <footer>
-            <div class="footer-content">
-                <div class="footer-title">
-                    <div id="line"></div>
-                    <h3>My Contacts</h3>
-                    <div id="line"></div>
+        <footer class="tech">
+            <div class="footer-inner">
+                <div>© <span id="year"></span> Wayland La</div>
+                <div class="links">
+                    <a href="mailto: waylandla@gmail.com" target="_blank">Email</a>
+                    <a href="https://github.com/Dnalyaw" target="_blank" rel="noopener">GitHub</a>
+                    <a href="https://www.linkedin.com/in/waylandla" target="_blank" rel="noopener">LinkedIn</a>
+                    <a href="https://www.instagram.com/waylaand/" target="_blank" rel="noopener">Instagram</a>
                 </div>
-                
-                <ul class="socials">
-                    <li><a href="mailto: waylandla@gmail.com" target="_blank"><img src="contact_photos/gmail.png" alt="gmail"></a></li>
-                    <li><a href="https://www.instagram.com/waylaand/" target="_blank"><img src="contact_photos/instagram.png" alt="instagram"></a></li>
-                    <li><a href="https://github.com/Dnalyaw" target="_blank"><img src="contact_photos/github.png" alt="github"></li>
-                    <li><a href="https://www.linkedin.com/in/waylandla" target="_blank"><img src="contact_photos/linkedin.png" alt="linkedin"></li>
-                </ul>
             </div>
         </footer>
 </body>

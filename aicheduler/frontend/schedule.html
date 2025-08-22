@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Schedule Optimizer</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/main.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .upload-section {
+            margin-bottom: 30px;
+        }
+
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: #f8f9ff;
+        }
+
+        .upload-area:hover {
+            border-color: #5a67d8;
+            background: #f0f2ff;
+            transform: translateY(-2px);
+        }
+
+        .upload-area.dragover {
+            border-color: #4c51bf;
+            background: #e6fffa;
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .upload-text {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #4a5568;
+        }
+
+        .upload-subtext {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .requirements-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: "✨";
+            margin-right: 10px;
+        }
+
+        #requirementsText {
+            width: 100%;
+            min-height: 120px;
+            padding: 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+            font-family: inherit;
+        }
+
+        #requirementsText:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .optimize-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .optimize-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .optimize-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(72, 187, 120, 0.4);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(72, 187, 120, 0.6);
+        }
+
+        .results-section {
+            margin-top: 40px;
+            display: none;
+        }
+
+        .schedule-display {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .schedule-column {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .schedule-column h3 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.3rem;
+        }
+
+        .event {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .event-title {
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .event-time {
+            color: #718096;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .suggestions {
+            background: #e6fffa;
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 5px solid #38b2ac;
+        }
+
+        .suggestions h3 {
+            color: #234e52;
+            margin-bottom: 15px;
+        }
+
+        .suggestion-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .file-info {
+            background: #f0fff4;
+            border: 1px solid #9ae6b4;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .file-info-content {
+            color: #22543d;
+            font-weight: 500;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            display: none;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .schedule-display {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+        }
+
+        /* Calendar preview */
+        .calendar-section {
+            margin-top: 30px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .calendar-column {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .calendar-column h3 {
+            color: #2d3748;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .calendar-container {
+            background: white;
+            border-radius: 12px;
+            padding: 8px;
+            min-height: 650px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+
+        @media (max-width: 900px) {
+            .calendar-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Hover tooltip for calendar events */
+        .event-tooltip {
+            position: fixed;
+            background: rgba(26, 32, 44, 0.95);
+            color: #fff;
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            line-height: 1.4;
+            z-index: 9999;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+            pointer-events: none;
+            display: none;
+            max-width: 280px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Smart Schedule Optimizer</h1>
+            <p>Upload your calendar and let AI optimize your schedule</p>
+        </div>
+
+        <div class="main-content">
+            <div class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📅</div>
+                    <div class="upload-text">Drop your ICS calendar file here</div>
+                    <div class="upload-subtext">or click to browse your files</div>
+                    <input type="file" id="fileInput" accept=".ics" />
+                </div>
+                <div class="file-info" id="fileInfo">
+                    <div class="file-info-content" id="fileInfoContent"></div>
+                </div>
+            </div>
+
+            <div class="requirements-section">
+                <h2 class="section-title">What would you like to optimize?</h2>
+                <textarea 
+                    id="requirementsText" 
+                    placeholder="Describe what you'd like to add or change in your schedule. For example:
+- I need 2 hours of study time for math every day
+- Add 30 minutes of gym time in the morning
+- I want to have lunch breaks at consistent times
+- Move meetings to cluster them together
+- I need time for a part-time job on weekends
+- Add buffer time between classes"></textarea>
+            </div>
+
+            <div style="text-align: center;">
+                <button class="optimize-btn" id="optimizeBtn" disabled>
+                    Optimize My Schedule
+                </button>
+            </div>
+
+            <div class="download-section" id="downloadSection" style="text-align: center; margin-top: 20px; display: none;">
+                <button class="download-btn" id="downloadBtn">
+                    📥 Download Enhanced Schedule
+                </button>
+            </div>
+
+            <!-- Calendar preview section (moved here below the download button) -->
+            <div class="calendar-section" id="calendarSection" style="display: none;">
+                <h2 class="section-title">Calendar Preview</h2>
+                <div class="calendar-grid">
+                    <div class="calendar-column">
+                        <h3>📅 Current</h3>
+                        <div id="calendarCurrent" class="calendar-container"></div>
+                    </div>
+                    <div class="calendar-column">
+                        <h3>✅ Optimized</h3>
+                        <div id="calendarOptimized" class="calendar-container"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Analyzing your schedule and generating optimizations...</p>
+            </div>
+
+            <div class="results-section" id="results">
+                <div class="schedule-display">
+                    <div class="schedule-column">
+                        <h3>📋 Current Schedule</h3>
+                        <div id="currentSchedule"></div>
+                    </div>
+                    <div class="schedule-column">
+                        <h3>✨ Optimized Schedule</h3>
+                        <div id="optimizedSchedule"></div>
+                    </div>
+                </div>
+                
+                <div class="suggestions">
+                    <h3>🎯 Optimization Suggestions</h3>
+                    <div id="suggestionsList"></div>
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+    <script>
+        let currentCalendarData = null;
+        // Shared tooltip element
+        const tooltip = document.createElement('div');
+        tooltip.className = 'event-tooltip';
+        document.body.appendChild(tooltip);
+
+        // File upload handling
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileInfoContent = document.getElementById('fileInfoContent');
+        const optimizeBtn = document.getElementById('optimizeBtn');
+        const requirementsText = document.getElementById('requirementsText');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        let generatedOptimizations = null; // Store the optimizations for download
+
+        uploadArea.addEventListener('click', () => fileInput.click());
+        uploadArea.addEventListener('dragover', handleDragOver);
+        uploadArea.addEventListener('dragleave', handleDragLeave);
+        uploadArea.addEventListener('drop', handleDrop);
+        fileInput.addEventListener('change', handleFileSelect);
+        optimizeBtn.addEventListener('click', optimizeSchedule);
+        downloadBtn.addEventListener('click', downloadEnhancedSchedule);
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        }
+
+        function handleDragLeave(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        }
+
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (file) {
+                handleFile(file);
+            }
+        }
+
+        function handleFile(file) {
+            if (!file.name.toLowerCase().endsWith('.ics')) {
+                alert('Please select an ICS calendar file');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    currentCalendarData = parseICS(e.target.result);
+                    displayFileInfo(file, currentCalendarData);
+                    updateOptimizeButton();
+                    showCalendarSection();
+                    renderCurrentCalendar();
+                } catch (error) {
+                    alert('Error reading calendar file. Please make sure it\'s a valid ICS file.');
+                    console.error(error);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function parseICS(icsContent) {
+            const events = [];
+            const lines = icsContent.split('\n');
+            let currentEvent = null;
+
+            for (let line of lines) {
+                line = line.trim();
+                
+                if (line === 'BEGIN:VEVENT') {
+                    currentEvent = {};
+                } else if (line === 'END:VEVENT' && currentEvent) {
+                    events.push(currentEvent);
+                    currentEvent = null;
+                } else if (currentEvent) {
+                    const colonIndex = line.indexOf(':');
+                    if (colonIndex > 0) {
+                        const key = line.substring(0, colonIndex);
+                        const value = line.substring(colonIndex + 1);
+                        
+                        if (key === 'SUMMARY') {
+                            currentEvent.title = value;
+                        } else if (key.startsWith('DTSTART')) {
+                            currentEvent.start = parseICSDate(value);
+                        } else if (key.startsWith('DTEND')) {
+                            currentEvent.end = parseICSDate(value);
+                        }
+                    }
+                }
+            }
+
+            return events.filter(event => event.title && event.start && event.end);
+        }
+
+        function parseICSDate(dateStr) {
+            // Handle both DATE and DATETIME formats
+            if (dateStr.includes('T')) {
+                // DATETIME format: 20231201T120000Z
+                const cleanDate = dateStr.replace(/[TZ]/g, '');
+                const year = cleanDate.substring(0, 4);
+                const month = cleanDate.substring(4, 6);
+                const day = cleanDate.substring(6, 8);
+                const hour = cleanDate.substring(8, 10) || '00';
+                const minute = cleanDate.substring(10, 12) || '00';
+                return new Date(`${year}-${month}-${day}T${hour}:${minute}:00`);
+            } else {
+                // DATE format: 20231201
+                const year = dateStr.substring(0, 4);
+                const month = dateStr.substring(4, 6);
+                const day = dateStr.substring(6, 8);
+                return new Date(`${year}-${month}-${day}T00:00:00`);
+            }
+        }
+
+        function displayFileInfo(file, events) {
+            fileInfoContent.textContent = `📅 ${file.name} loaded successfully! Found ${events.length} events.`;
+            fileInfo.style.display = 'block';
+        }
+
+        function updateOptimizeButton() {
+            const hasFile = currentCalendarData && currentCalendarData.length > 0;
+            const hasRequirements = requirementsText.value.trim().length > 0;
+            optimizeBtn.disabled = !hasFile || !hasRequirements;
+        }
+
+        requirementsText.addEventListener('input', updateOptimizeButton);
+
+        async function optimizeSchedule() {
+            const loading = document.getElementById('loading');
+            const results = document.getElementById('results');
+            
+            loading.style.display = 'block';
+            results.style.display = 'none';
+
+            try {
+                // Generate optimizations (this is now properly awaited)
+                await generateOptimizations();
+                document.getElementById('downloadSection').style.display = 'block';
+                loading.style.display = 'none';
+                results.style.display = 'block';
+            } catch (error) {
+                console.error('Error generating optimizations:', error);
+                alert('Error generating optimizations. Please try again.');
+                loading.style.display = 'none';
+            }
+        }
+
+        async function generateOptimizations() {
+            const requirements = requirementsText.value.trim();
+            const currentSchedule = document.getElementById('currentSchedule');
+            const optimizedSchedule = document.getElementById('optimizedSchedule');
+            const suggestionsList = document.getElementById('suggestionsList');
+
+            // Display current schedule
+            currentSchedule.innerHTML = '';
+            currentCalendarData.slice(0, 10).forEach(event => {
+                const eventEl = document.createElement('div');
+                eventEl.className = 'event';
+                eventEl.innerHTML = `
+                    <div class="event-title">${event.title}</div>
+                    <div class="event-time">${formatDateTimeRange(event.start, event.end)}</div>
+                `;
+                currentSchedule.appendChild(eventEl);
+            });
+
+            // Generate optimized schedule with ALL original events preserved + new additions
+            const optimizations = await generateMockOptimizations(requirements);
+            generatedOptimizations = optimizations; // Store for download
+            
+            optimizedSchedule.innerHTML = '';
+            
+            // First, display ALL original events (preserved exactly as they are)
+            currentCalendarData.slice(0, 10).forEach(event => {
+                const eventEl = document.createElement('div');
+                eventEl.className = 'event';
+                eventEl.innerHTML = `
+                    <div class="event-title">${event.title}</div>
+                    <div class="event-time">${formatDateTimeRange(event.start, event.end)}</div>
+                `;
+                optimizedSchedule.appendChild(eventEl);
+            });
+            
+            // Then, add new events based on user requirements
+            optimizations.newEvents.forEach(event => {
+                const eventEl = document.createElement('div');
+                eventEl.className = 'event';
+                eventEl.style.borderLeft = '4px solid #48bb78'; // Green border for new events
+                eventEl.innerHTML = `
+                    <div class="event-title">🆕 ${event.title}</div>
+                    <div class="event-time">${event.time}</div>
+                `;
+                optimizedSchedule.appendChild(eventEl);
+            });
+
+            // Display suggestions
+            suggestionsList.innerHTML = '';
+            optimizations.suggestions.forEach(suggestion => {
+                const suggestionEl = document.createElement('div');
+                suggestionEl.className = 'suggestion-item';
+                suggestionEl.textContent = suggestion;
+                suggestionsList.appendChild(suggestionEl);
+            });
+
+            // Update optimized calendar view
+            renderOptimizedCalendar(optimizations.newEvents);
+        }
+
+        async function generateMockOptimizations(requirements) {
+            const suggestions = [];
+            const newEvents = []; // Only NEW events to be added
+
+            // Analyze requirements and generate contextual suggestions
+            const reqLower = requirements.toLowerCase();
+            const msg = "You are an AI scheduler that gives back specific inputs based on user preferences with how they want to add items into their schedule. For example, if someone inputted, '-I want to go to the gym once a week in the morning\n-I want to spend and hour a week applying to jobs', you should respond in this format: '[[\"Gym/Workout\", \"Friday\", \"09:00 AM\", \"Friday\", \"10:00 AM\"], [\"Apply to Jobs\", \"Saturday\", \"09:30 PM\", \"Saturday\", \"10:30 PM\"]]', so [Subject (String), Day of the Week for Start (String), Start Hour (String), Day of the Week for End (String), End Hour (String)] like strings in double quotes in a list. Remember that you need to pick what day of the week and time of day you believe is most optimal for the average human. If the prompt states that the person wants to do something everyday, such as 'I want to go to the gym everyday', make multiple entries representing each day of the week when the person will do that task (which would be 7 if the person asked to do somthing everyday or 5 if it were to be every weekday). The input you have to schedule: " + requirements
+
+            try {
+                const res = await fetch("http://localhost:3000/chat", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ message: msg })
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    //console.log(data.reply);
+
+                    const arrayFromJson = JSON.parse(data.reply);
+
+                    for (let i = 0; i < arrayFromJson.length; i++) {
+                        //console.log(arrayFromJson[i]);
+                        newEvents.push({
+                            //[[\"Gym/Workout\", \"Friday\", \"09:00 AM\", \"Friday\", \"10:00 AM\"]
+                            title: arrayFromJson[i][0],
+                            time: arrayFromJson[i][1] + "s, " + arrayFromJson[i][2] + " - " + arrayFromJson[i][4],
+                            start: arrayFromJson[i][1] + ", " + arrayFromJson[i][2],
+                            end: arrayFromJson[i][3] + ", " + arrayFromJson[i][4]
+
+                        });
+                    }
+                } else {
+                    console.warn('API call failed, falling back to local optimization');
+                }
+            } catch (error) {
+                console.warn('API call failed, falling back to local optimization:', error);
+            }
+
+            // Always add some general optimization suggestions
+            suggestions.push('✅ All your existing events have been preserved');
+            suggestions.push('📅 New activities scheduled around your current commitments');
+
+            console.log(newEvents);
+
+            return { suggestions, newEvents};
+        }
+
+        function parseEventToICS(eventObj) {
+            // Validate input object
+            if (!eventObj || typeof eventObj !== 'object') {
+                throw new Error('Invalid input. Expected an object with event properties');
+            }
+            
+            const { start, end } = eventObj;
+            
+            if (!start) {
+                throw new Error('Missing required "start" property');
+            }
+            
+            // Parse start datetime
+            const startICS = parseDateTimeToICS(start);
+            
+            // If no end provided, return just the start time
+            if (!end) {
+                return startICS;
+            }
+            
+            // Parse end datetime
+            const endICS = parseDateTimeToICS(end);
+            
+            // Return object with both start and end
+            return { start: startICS, end: endICS };
+        }
+
+        // Helper function to parse "Day, HH:MM AM/PM" format to ICS format
+        function parseDateTimeToICS(dateTimeStr) {
+            const parts = dateTimeStr.split(', ');
+            if (parts.length !== 2) {
+                throw new Error('Invalid datetime format. Expected: "Day, HH:MM AM/PM"');
+            }
+            
+            const dayName = parts[0].trim();
+            const timeStr = parts[1].trim();
+            
+            // Day mapping
+            const dayMap = {
+                'sunday': 0, 'monday': 1, 'tuesday': 2, 'wednesday': 3,
+                'thursday': 4, 'friday': 5, 'saturday': 6
+            };
+            
+            const dayIndex = dayMap[dayName.toLowerCase()];
+            if (dayIndex === undefined) {
+                throw new Error('Invalid day name. Expected: Sunday, Monday, Tuesday, etc.');
+            }
+            
+            // Parse time
+            const timeMatch = timeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+            if (!timeMatch) {
+                throw new Error('Invalid time format. Expected: "HH:MM AM/PM"');
+            }
+            
+            let hours = parseInt(timeMatch[1]);
+            const minutes = parseInt(timeMatch[2]);
+            const ampm = timeMatch[3].toUpperCase();
+            
+            // Convert to 24-hour format
+            if (ampm === 'PM' && hours !== 12) {
+                hours += 12;
+            } else if (ampm === 'AM' && hours === 12) {
+                hours = 0;
+            }
+            
+            // Get current date for week calculation
+            const now = new Date();
+            
+            // Calculate start of current week (Sunday)
+            const currentWeekStart = new Date(now);
+            currentWeekStart.setDate(now.getDate() - now.getDay());
+            currentWeekStart.setHours(0, 0, 0, 0);
+            
+            // Create date for the specified day in current week
+            const targetDate = new Date(currentWeekStart);
+            targetDate.setDate(currentWeekStart.getDate() + dayIndex);
+            targetDate.setHours(hours, minutes, 0);
+            
+            // Format as YYYYMMDDTHHMMSS
+            const year = targetDate.getFullYear();
+            const month = String(targetDate.getMonth() + 1).padStart(2, '0');
+            const dayStr = String(targetDate.getDate()).padStart(2, '0');
+            const hoursStr = String(targetDate.getHours()).padStart(2, '0');
+            const minutesStr = String(targetDate.getMinutes()).padStart(2, '0');
+            const seconds = '00';
+            
+            return `${year}${month}${dayStr}T${hoursStr}${minutesStr}${seconds}`;
+        }
+
+        // Convenience functions for different use cases
+        function parseEventToICSStart(eventObj) {
+            const result = parseEventToICS(eventObj);
+            return typeof result === 'string' ? result : result.start;
+        }
+
+        function parseEventToICSEnd(eventObj) {
+            const result = parseEventToICS(eventObj);
+            return typeof result === 'object' ? result.end : null;
+        }
+
+
+        function downloadEnhancedSchedule() {
+            if (!currentCalendarData || !generatedOptimizations) {
+                alert('Please optimize your schedule first before downloading.');
+                return;
+            }
+
+            // Generate ICS content with original events + new events
+            let icsContent = 'BEGIN:VCALENDAR\n';
+            icsContent += 'VERSION:2.0\n';
+            icsContent += 'PRODID:-//Smart Schedule Optimizer//Enhanced Schedule//EN\n';
+            icsContent += 'CALSCALE:GREGORIAN\n';
+            
+            // Add Pacific timezone definition
+            icsContent += 'BEGIN:VTIMEZONE\n';
+            icsContent += 'TZID:' + Intl.DateTimeFormat().resolvedOptions().timeZone + '\n';
+            icsContent += 'BEGIN:DAYLIGHT\n';
+            icsContent += 'TZOFFSETFROM:-0800\n';
+            icsContent += 'TZOFFSETTO:-0700\n';
+            icsContent += 'TZNAME:PDT\n';
+            icsContent += 'DTSTART:20070311T020000\n';
+            icsContent += 'RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU\n';
+            icsContent += 'END:DAYLIGHT\n';
+            icsContent += 'BEGIN:STANDARD\n';
+            icsContent += 'TZOFFSETFROM:-0700\n';
+            icsContent += 'TZOFFSETTO:-0800\n';
+            icsContent += 'TZNAME:PST\n';
+            icsContent += 'DTSTART:20071104T020000\n';
+            icsContent += 'RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU\n';
+            icsContent += 'END:STANDARD\n';
+            icsContent += 'END:VTIMEZONE\n';
+
+            // Add all original events
+            currentCalendarData.forEach((event, index) => {
+                icsContent += 'BEGIN:VEVENT\n';
+                icsContent += `UID:original-${index}-${Date.now()}\n`;
+                icsContent += `DTSTART;TZID=America/Los_Angeles:${formatICSDate(event.start)}\n`;
+                icsContent += `DTEND;TZID=America/Los_Angeles:${formatICSDate(event.end)}\n`;
+                icsContent += `SUMMARY:${event.title}\n`;
+                icsContent += `DESCRIPTION:Original event from uploaded schedule\n`;
+                icsContent += 'END:VEVENT\n';
+            });
+
+            // Add new events based on optimization
+            generatedOptimizations.newEvents.forEach((event, index) => {
+                // Generate sample dates for new events (you can make this more sophisticated)
+                const start = parseEventToICSStart(event);
+                const end = parseEventToICSEnd(event);
+                icsContent += 'BEGIN:VEVENT\n';
+                icsContent += `UID:original-${index}-${Date.now()}\n`;
+                icsContent += `DTSTART;TZID=America/Los_Angeles:${start}\n`;
+                icsContent += `DTEND;TZID=America/Los_Angeles:${end}\n`;
+                icsContent += `SUMMARY:${event.title}\n`;
+                icsContent += `DESCRIPTION:Original event from uploaded schedule\n`;
+                icsContent += 'END:VEVENT\n';
+            });
+
+            icsContent += 'END:VCALENDAR';
+
+            // Create download
+            const blob = new Blob([icsContent], { type: 'text/calendar' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'enhanced-schedule.ics';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        function formatICSDate(date) {
+            // Get current date for week calculation
+            const now = new Date();
+            
+            // Calculate start of current week (Sunday)
+            const currentWeekStart = new Date(now);
+            currentWeekStart.setDate(now.getDate() - now.getDay());
+            currentWeekStart.setHours(0, 0, 0, 0);
+            
+            // Get the day of week from original date (0 = Sunday, 6 = Saturday)
+            const dayOfWeek = date.getDay();
+            
+            // Create new date in current week with same day of week and time
+            const newDate = new Date(currentWeekStart);
+            newDate.setDate(currentWeekStart.getDate() + dayOfWeek);
+            newDate.setHours(date.getHours(), date.getMinutes(), date.getSeconds());
+            
+            // Format date as YYYYMMDDTHHMMSS (local time, no Z suffix)
+            const year = newDate.getFullYear();
+            const month = String(newDate.getMonth() + 1).padStart(2, '0');
+            const day = String(newDate.getDate()).padStart(2, '0');
+            const hours = String(newDate.getHours()).padStart(2, '0');
+            const minutes = String(newDate.getMinutes()).padStart(2, '0');
+            const seconds = String(newDate.getSeconds()).padStart(2, '0');
+            
+            return `${year}${month}${day}T${hours}${minutes}${seconds}`;
+        }
+
+
+        function formatDateTimeRange(startDate, endDate) {
+            const weekday = startDate.toLocaleDateString('en-US', { weekday: 'short' });
+            const startTime = startDate.toLocaleTimeString('en-US', { 
+                hour: 'numeric', 
+                minute: '2-digit', 
+                hour12: true 
+            });
+            const endTime = endDate.toLocaleTimeString('en-US', { 
+                hour: 'numeric', 
+                minute: '2-digit', 
+                hour12: true 
+            });
+            
+            return `${weekday}, ${startTime} - ${endTime}`;
+        }
+
+        // Keep the old function name for backward compatibility, but make it use the new format
+        function formatDateTime(date) {
+            return formatDateTimeRange(date, date);
+        }
+
+        // ===== Calendar rendering logic =====
+        let calendarCurrentInstance = null;
+        let calendarOptimizedInstance = null;
+
+        function showCalendarSection() {
+            document.getElementById('calendarSection').style.display = 'block';
+        }
+
+        function mapToCurrentWeek(date) {
+            const now = new Date();
+            const weekStart = new Date(now);
+            weekStart.setDate(now.getDate() - now.getDay()); // Sunday
+            weekStart.setHours(0, 0, 0, 0);
+
+            const mapped = new Date(weekStart);
+            mapped.setDate(weekStart.getDate() + date.getDay());
+            mapped.setHours(date.getHours(), date.getMinutes(), date.getSeconds(), 0);
+            return mapped;
+        }
+
+        function convertDayTimeToDate(dayTimeStr) {
+            const parts = dayTimeStr.split(', ');
+            if (parts.length !== 2) return null;
+            const dayName = parts[0].trim().toLowerCase();
+            const timeStr = parts[1].trim();
+
+            const dayMap = {
+                'sunday': 0, 'monday': 1, 'tuesday': 2, 'wednesday': 3,
+                'thursday': 4, 'friday': 5, 'saturday': 6
+            };
+
+            const match = timeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+            if (!match) return null;
+            let hours = parseInt(match[1], 10);
+            const minutes = parseInt(match[2], 10);
+            const ampm = match[3].toUpperCase();
+            if (ampm === 'PM' && hours !== 12) hours += 12;
+            if (ampm === 'AM' && hours === 12) hours = 0;
+
+            const now = new Date();
+            const weekStart = new Date(now);
+            weekStart.setDate(now.getDate() - now.getDay());
+            weekStart.setHours(0, 0, 0, 0);
+
+            const target = new Date(weekStart);
+            target.setDate(weekStart.getDate() + dayMap[dayName]);
+            target.setHours(hours, minutes, 0, 0);
+            return target;
+        }
+
+        function toFullCalendarEventsOriginal(events) {
+            return events.map(ev => ({
+                title: ev.title,
+                start: mapToCurrentWeek(ev.start),
+                end: mapToCurrentWeek(ev.end),
+                backgroundColor: '#667eea',
+                borderColor: '#4c51bf',
+                extendedProps: { source: 'Original' }
+            }));
+        }
+
+        function toFullCalendarEventsNew(newEvents) {
+            return newEvents.map(ev => ({
+                title: `🆕 ${ev.title}`,
+                start: convertDayTimeToDate(ev.start),
+                end: convertDayTimeToDate(ev.end),
+                backgroundColor: '#48bb78',
+                borderColor: '#2f855a',
+                extendedProps: { source: 'Optimized' }
+            })).filter(e => e.start && e.end);
+        }
+
+        function renderCurrentCalendar() {
+            const container = document.getElementById('calendarCurrent');
+            if (!container) return;
+            if (calendarCurrentInstance) {
+                calendarCurrentInstance.destroy();
+            }
+            const events = toFullCalendarEventsOriginal(currentCalendarData || []);
+            calendarCurrentInstance = new FullCalendar.Calendar(container, {
+                initialView: 'timeGridWeek',
+                headerToolbar: { left: 'prev,next today', center: 'title', right: 'timeGridWeek,timeGridDay,dayGridMonth' },
+                nowIndicator: true,
+                slotMinTime: '00:00:00',
+                slotMaxTime: '24:00:00',
+                events,
+                eventMouseEnter(info) {
+                    const { event, jsEvent } = info;
+                    const start = event.start;
+                    const end = event.end;
+                    const source = event.extendedProps?.source || 'Event';
+                    const fmt = (d) => d ? d.toLocaleString('en-US', { weekday: 'short', hour: 'numeric', minute: '2-digit', hour12: true }) : '';
+                    tooltip.innerHTML = `<div style="font-weight:600;margin-bottom:4px;">${event.title}</div>
+                        <div>${source}</div>
+                        <div>Start: ${fmt(start)}</div>
+                        <div>End: ${fmt(end)}</div>`;
+                    tooltip.style.display = 'block';
+                    tooltip.style.left = (jsEvent.clientX + 12) + 'px';
+                    tooltip.style.top = (jsEvent.clientY + 12) + 'px';
+                },
+                eventMouseLeave() {
+                    tooltip.style.display = 'none';
+                },
+                eventMouseMove(info) {
+                    const { jsEvent } = info;
+                    tooltip.style.left = (jsEvent.clientX + 12) + 'px';
+                    tooltip.style.top = (jsEvent.clientY + 12) + 'px';
+                }
+            });
+            calendarCurrentInstance.render();
+        }
+
+        function renderOptimizedCalendar(newEventsArr) {
+            const container = document.getElementById('calendarOptimized');
+            if (!container) return;
+            if (calendarOptimizedInstance) {
+                calendarOptimizedInstance.destroy();
+            }
+            const base = toFullCalendarEventsOriginal(currentCalendarData || []);
+            const additions = toFullCalendarEventsNew(newEventsArr || []);
+            calendarOptimizedInstance = new FullCalendar.Calendar(container, {
+                initialView: 'timeGridWeek',
+                headerToolbar: { left: 'prev,next today', center: 'title', right: 'timeGridWeek,timeGridDay,dayGridMonth' },
+                nowIndicator: true,
+                slotMinTime: '00:00:00',
+                slotMaxTime: '24:00:00',
+                events: [...base, ...additions],
+                eventMouseEnter(info) {
+                    const { event, jsEvent } = info;
+                    const start = event.start;
+                    const end = event.end;
+                    const source = event.extendedProps?.source || 'Event';
+                    const fmt = (d) => d ? d.toLocaleString('en-US', { weekday: 'short', hour: 'numeric', minute: '2-digit', hour12: true }) : '';
+                    tooltip.innerHTML = `<div style="font-weight:600;margin-bottom:4px;">${event.title}</div>
+                        <div>${source}</div>
+                        <div>Start: ${fmt(start)}</div>
+                        <div>End: ${fmt(end)}</div>`;
+                    tooltip.style.display = 'block';
+                    tooltip.style.left = (jsEvent.clientX + 12) + 'px';
+                    tooltip.style.top = (jsEvent.clientY + 12) + 'px';
+                },
+                eventMouseLeave() {
+                    tooltip.style.display = 'none';
+                },
+                eventMouseMove(info) {
+                    const { jsEvent } = info;
+                    tooltip.style.left = (jsEvent.clientX + 12) + 'px';
+                    tooltip.style.top = (jsEvent.clientY + 12) + 'px';
+                }
+            });
+            calendarOptimizedInstance.render();
+        }
+    </script>
+</body>
+</html>

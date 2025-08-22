@@ -1,1 +1,3 @@
 .cache/** 
+aicheduler/app/.env
+aicheduler/app/node_modules/
